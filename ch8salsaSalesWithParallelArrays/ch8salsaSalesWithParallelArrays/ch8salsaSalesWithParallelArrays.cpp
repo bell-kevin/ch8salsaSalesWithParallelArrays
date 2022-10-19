@@ -1,118 +1,91 @@
-// ch8salsaSalesWithParallelArrays.cpp : This file contains the 'main' function. Program execution begins and ends there.
+// ConsoleApplication1.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
 
 #include <iostream>
-#include <string>
-#include <iomanip>
-using namespace std;
 
-// Function prototypes
-// This function displays the menu
-void displaySales(string salsaNames[], int salsaSales[], int size);
 
-// This function displays the total sales
-void displayTotalSales(int salsaSales[], int size);
-
-// This function displays the highest selling salsa
 int findHighest(int salsaSales[], int size);
-
-// This function displays the lowest selling salsa
 int findLowest(int salsaSales[], int size);
-
+int findTotal(int salsaSales[], int size);
+//get sales for each salsa
+void getSalsaSales(int salsaSales[], int size);
+std::string salsaNames[5] = { "Mild", "Medium", "Sweet", "Hot", "Zesty" };
 int main()
 {
-	// Declare and initialize the parallel arrays
-	std::string salsaNames[5] = { "Mild", "Medium", "Sweet", "Hot", "Zesty" };
+	std::cout << "Ch 8 Salsa Sales with Parallel Arrays by Kevin Bell\n";
+	
 	int salsaSales[5] = { 0 };
-	
-	// Display the highest selling salsa
-	cout << "The highest selling salsa is " << salsaNames[findHighest(salsaSales, 5)] << endl;
-	
-	// Display the lowest selling salsa
-	cout << "The lowest selling salsa is " << salsaNames[findLowest(salsaSales, 5)] << endl;
-	
-	
-    std::cout << "Chapter 8 Salsa Sales with Parallel Arrays by Kevin Bell\n";
-	std::cout << "Enter the number of jars sold for each salsa type.\n";
+	std::cout << "Enter the number of jars sold last month for each salsa type.\n";
+	getSalsaSales(salsaSales, 5);
+	std::cout << std::endl;
+	std::cout << "Salsa Sales Report\n\n";
+	std::cout << "Type\t\tJars Sold\n";
+	std::cout << "--------------------------\n";
 	for (int i = 0; i < 5; i++)
 	{
-		std::cout << salsaNames[i] << ": ";
-		std::cin >> salsaSales[i];
+		std::cout << salsaNames[i] << "\t\t" << salsaSales[i] << std::endl;
 	}
-	cout << endl;
-	// Display the sales report
-	displaySales(salsaNames, salsaSales, 5);
-	
-	cout << endl;
-	// Display the total sales
-	displayTotalSales(salsaSales, 5);
-
+	std::cout << std::endl;
+	// total sales
+	std::cout << "Total Sales: " << findTotal(salsaSales, 5) << std::endl;
 	// Display the highest selling salsa
-	cout << "The highest selling salsa is " << salsaNames[findHighest(salsaSales, 5)] << endl;
-
+	std::cout << "The highest selling salsa is " << salsaNames[findHighest(salsaSales, 5)] << std::endl;
 	// Display the lowest selling salsa
-	cout << "The lowest selling salsa is " << salsaNames[findLowest(salsaSales, 5)] << endl;
-	
-	// Display the highest selling salsa
-	std::cout << "The highest selling salsa is " << salsaNames[findHighest(salsaSales, 5)] << ".\n";
-	
-	// Display the lowest selling salsa
-	std::cout << "The lowest selling salsa is " << salsaNames[findLowest(salsaSales, 5)] << ".\n";
-
-
-	
+	std::cout << "The lowest selling salsa is " << salsaNames[findLowest(salsaSales, 5)] << std::endl;
 	system("pause");
 	return 0;
-} // end main
-
-// 4 functions
-
-// 1. Display the sales report
-void displaySales(string salsaNames[], int salsaSales[], int size)
+}
+// 2. Find the highest selling salsa
+int findHighest(int salsaSales[], int size)
 {
-	std::cout << "Salsa Sales Report\n\n";
-	std::cout << "Salsa Type\t\tJars Sold\n";
+	int highest = 0;
 	for (int i = 0; i < size; i++)
 	{
-		std::cout << salsaNames[i] << "\t\t\t" << salsaSales[i] << endl;
-	} // end for
-} // end displaySales
-
-// 2. Find the highest selling salsa
-	
-	int findHighest(int salsaSales[], int size)
-	{
-		int highest = salsaSales[0];
-		for (int i = 1; i < size; i++)
+		if (salsaSales[i] > salsaSales[highest])
 		{
-			if (salsaSales[i] > highest)
-				highest = salsaSales[i];
-		} // end for
-		return highest;
-	} // end findHighest
-	
+			highest = i;
+		}
+	}
+	return highest;
+} 
+
 // 3. Find the lowest selling salsa
-
-	int findLowest(int salsaSales[], int size)
+int findLowest(int salsaSales[], int size)
+{
+	int lowest = 0;
+	for (int i = 0; i < size; i++)
 	{
-		int lowest = salsaSales[0];
-		for (int i = 1; i < size; i++)
+		if (salsaSales[i] < salsaSales[lowest])
 		{
-			if (salsaSales[i] < lowest)
-				lowest = salsaSales[i];
-		} // end for
-		return lowest;
-	} // end findLowest
-	
-	
-// 4. Display the total sales
+			lowest = i;
+		}
+	}
+	return lowest;
+}
 
-	void displayTotalSales(int salsaSales[], int size)
+//total sales
+
+int findTotal(int salsaSales[], int size)
+{
+	int total = 0;
+	for (int i = 0; i < size; i++)
 	{
-		int total = 0;
-		for (int i = 0; i < size; i++)
+		total += salsaSales[i];
+	}
+	return total;
+}
+
+//get sales for each salsa
+void getSalsaSales(int salsaSales[], int size)
+{
+	for (int i = 0; i < size; i++)
+	{
+		std::cout << "Enter the number of jars sold for " << salsaNames[i]  << ": ";
+		std::cin >> salsaSales[i];
+		while (salsaSales[i] < 0)
 		{
-			total += salsaSales[i];
-		} // end for
-		std::cout << "Total Sales: " << total << endl;
-	} // end displayTotalSales
+			std::cout << "Invalid entry. Enter a positive number: ";
+			std::cin >> salsaSales[i];
+		}
+	}
+}

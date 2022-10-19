@@ -1,4 +1,4 @@
-# salsa1
+# salsa
 
 Write a program that lets a salsa maker track sales for five different types of salsa they produce: mild, medium, sweet, hot, and zesty. Use two parallel arrays with 5 elements in each: one is an array of strings for the salsa names, and the other is an array of integers for the number of jars sold for each salsa type. Create the string array with an initialization list. Prompt the user for the sales numbers for the second array. After all the data has been entered, produce a report that displays sales for each salsa type, total sales, and the names of the highest selling and lowest selling products.
 
